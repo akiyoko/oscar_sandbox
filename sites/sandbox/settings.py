@@ -294,6 +294,7 @@ INSTALLED_APPS = [
     'django_extensions',
     # Debug toolbar + extensions
     'debug_toolbar',
+    'paypal',
     'apps.gateway',     # For allowing dashboard access
     'widget_tweaks',
 ]
@@ -430,6 +431,30 @@ THUMBNAIL_KEY_PREFIX = 'oscar-sandbox'
 # django/core/serializers/json.Serializer to have the `dumps` function. Also
 # in tests/config.py
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+
+# django-oscar-paypal
+# ===================
+
+PAYPAL_SANDBOX_MODE = True
+PAYPAL_CALLBACK_HTTPS = False
+PAYPAL_API_VERSION = '119'
+
+PAYPAL_API_USERNAME = ''
+PAYPAL_API_PASSWORD = ''
+PAYPAL_API_SIGNATURE = ''
+
+from django.utils.translation import ugettext_lazy as _
+OSCAR_DASHBOARD_NAVIGATION.append(
+    {
+        'label': _('PayPal'),
+        'icon': 'icon-globe',
+        'children': [
+            {
+                'label': _('Express transactions'),
+                'url_name': 'paypal-express-list',
+            },
+        ]
+    })
 
 # Try and import local settings which can be used to override any of the above.
 try:

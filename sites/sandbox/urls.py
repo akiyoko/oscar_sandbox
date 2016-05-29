@@ -6,6 +6,7 @@ from django.contrib import admin
 
 from oscar.app import application
 from oscar.views import handler500, handler404, handler403
+from paypal.express.dashboard.app import application as express_dashboard
 
 from apps.sitemaps import base_sitemaps
 
@@ -27,6 +28,10 @@ urlpatterns = [
 
 # Prefix Oscar URLs with language codes
 urlpatterns += i18n_patterns('',
+    # PayPal Express integration
+    url(r'checkout/paypal/', include('paypal.express.urls')),
+    # Dashboard views for Express
+    url(r'dashboard/paypal/express/', include(express_dashboard.urls)),
     # Custom functionality to allow dashboard users to be created
     url(r'gateway/', include('apps.gateway.urls')),
     # Oscar's normal URLs
